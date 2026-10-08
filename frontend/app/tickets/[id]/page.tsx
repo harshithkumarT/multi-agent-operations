@@ -6,7 +6,6 @@ import TicketMetadata from "../../components/TicketMetadata";
 import AgentInformation from "../../components/AgentInformation";
 import EscalationPanel from "../../components/EscalationPanel";
 
-import CreateTicketForm from "../../components/CreateTicketForm";
 import UpdateTicketStatus from "../../components/UpdateTicketStatus";
 import UpdateTicketPriority from "../../components/UpdateTicketPriority";
 import UpdateAssignedAgent from "../../components/UpdateAssignedAgent";
@@ -33,17 +32,32 @@ export default async function TicketDetailsPage({
 
   return (
     <div className="space-y-6 p-8">
+
       {/* Ticket Header */}
-      <TicketHeader ticket={ticket} />
+      <TicketHeader
+        id={String(ticket.id)}
+        subject={ticket.subject}
+        category={ticket.category}
+        status={ticket.status}
+        priority={ticket.priority}
+      />
 
       {/* Ticket Message */}
       <TicketMessage message={ticket.message} />
 
       {/* Ticket Metadata */}
-      <TicketMetadata ticket={ticket} />
+      <TicketMetadata
+        id={String(ticket.id)}
+        createdAt={ticket.created_at}
+        assignedAgent={ticket.assigned_agent ?? "Unassigned"}
+      />
 
       {/* Agent Information */}
-      <AgentInformation ticket={ticket} />
+      <AgentInformation
+        agentName={ticket.assigned_agent ?? "Unassigned"}
+        agentType={ticket.agent_type ?? "Not assigned"}
+        status={ticket.agent_status ?? "Idle"}
+      />
 
       {/* Update Ticket Status */}
       <UpdateTicketStatus
@@ -109,7 +123,9 @@ export default async function TicketDetailsPage({
         />
       )}
 
+      {/* Handoff History */}
       <HandoffHistory ticketId={ticket.id} />
+
     </div>
   );
 }
