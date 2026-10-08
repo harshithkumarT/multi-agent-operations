@@ -31,37 +31,31 @@ export default function DashboardPage() {
 
             {/* Statistics */}
             <div className="mt-6 grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4">
-                <StatCard
-                    title="Total Tickets"
-                    value={120}
-                />
-
-                <StatCard
-                    title="Pending"
-                    value={25}
-                />
-
-                <StatCard
-                    title="Resolved"
-                    value={80}
-                />
-
-                <StatCard
-                    title="Escalated"
-                    value={15}
-                />
+                <StatCard title="Total Tickets" value={120} />
+                <StatCard title="Pending" value={25} />
+                <StatCard title="Resolved" value={80} />
+                <StatCard title="Escalated" value={15} />
             </div>
 
             {/* Recent Tickets + Agent Status */}
             <div className="mt-6 grid grid-cols-1 gap-6 lg:grid-cols-2">
                 <RecentTickets />
-
                 <AgentStatus />
             </div>
 
             {/* Activity Feed */}
             <div className="mt-6">
                 <ActivityFeed />
+            </div>
+
+            {/* Show Existing Tickets Button */}
+            <div className="mt-6">
+                <Link
+                    href="/tickets"
+                    className="inline-block rounded-lg border border-gray-300 bg-white px-5 py-2.5 text-sm font-medium text-gray-900 transition hover:bg-gray-100"
+                >
+                    Show Existing Tickets
+                </Link>
             </div>
         </div>
     );
