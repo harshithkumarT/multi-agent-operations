@@ -64,6 +64,11 @@ jobs:
           echo "DATABASE_URL=postgresql+psycopg2://postgres:postgres@localhost:5432/multi_agent_operations" >> "$GITHUB_ENV"
 
 
+      - name: Create database tables
+        run: |
+          python create_tables.py
+
+
       - name: Run tests
         run: |
           pytest -v
