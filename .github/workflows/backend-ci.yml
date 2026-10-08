@@ -11,7 +11,6 @@ on:
       - main
       - master
 
-
 jobs:
   backend-tests:
 
@@ -35,39 +34,35 @@ jobs:
           --health-timeout 5s
           --health-retries 5
 
-
     defaults:
       run:
         working-directory: backend
 
-
     steps:
-
       - name: Checkout repository
         uses: actions/checkout@v4
-
 
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
           python-version: "3.12"
 
-
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
-
       - name: Set database environment variable
         run: |
           echo "DATABASE_URL=postgresql+psycopg2://postgres:postgres@localhost:5432/multi_agent_operations" >> "$GITHUB_ENV"
-
 
       - name: Create database tables
         run: |
           python create_tables.py
 
+      - name: Seed database
+        run: |
+          python seed_data.py
 
       - name: Run tests
         run: |
