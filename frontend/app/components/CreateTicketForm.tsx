@@ -77,8 +77,9 @@ export default function CreateTicketForm() {
         <input
           type="text"
           value={subject}
+    
           onChange={(e) => setSubject(e.target.value)}
-          className="mt-1 w-full rounded-lg border px-3 py-2"
+          className="mt-1 w-full rounded-lg text-black-600 border px-3 py-2"
           placeholder="Enter ticket subject"
         />
       </div>
@@ -92,7 +93,7 @@ export default function CreateTicketForm() {
         <textarea
           value={message}
           onChange={(e) => setMessage(e.target.value)}
-          className="mt-1 w-full rounded-lg border px-3 py-2"
+          className="mt-1 w-full rounded-lg border px-3 py-2 text-black-600"
           placeholder="Describe the problem"
           rows={4}
         />
@@ -107,15 +108,15 @@ export default function CreateTicketForm() {
         <select
           value={category}
           onChange={(e) => setCategory(e.target.value)}
-          className="mt-1 w-full rounded-lg border px-3 py-2"
+          className="mt-1 text-black-600 w-full rounded-lg border px-3 py-2"
         >
-          <option value="" disabled>
+          <option value="" disabled className="text-black-500">
             Select category
           </option>
 
-          <option value="Billing">Billing</option>
-          <option value="Support">Support</option>
-          <option value="Order">Order</option>
+          <option value="Billing" className="text-black-500">Billing</option>
+          <option value="Support" className="text-black-500">Support</option>
+          <option value="Order" className="text-black-500">Order</option>
         </select>
       </div>
 
@@ -130,9 +131,9 @@ export default function CreateTicketForm() {
           onChange={(e) => setStatus(e.target.value)}
           className="mt-1 w-full rounded-lg border px-3 py-2"
         >
-          <option value="Pending">Pending</option>
-          <option value="Resolved">Resolved</option>
-          <option value="Escalated">Escalated</option>
+          <option value="Pending" className="text-black-500">Pending</option>
+          <option value="Resolved" className="text-black-500">Resolved</option>
+          <option value="Escalated" className="text-black-500">Escalated</option>
         </select>
       </div>
 
@@ -147,9 +148,9 @@ export default function CreateTicketForm() {
           onChange={(e) => setPriority(e.target.value)}
           className="mt-1 w-full rounded-lg border px-3 py-2"
         >
-          <option value="Low">Low</option>
-          <option value="Medium">Medium</option>
-          <option value="High">High</option>
+          <option value="Low" className="text-black-500">Low</option>
+          <option value="Medium" className="text-black-500">Medium</option>
+          <option value="High" className="text-black-500">High</option>
         </select>
       </div>
 
