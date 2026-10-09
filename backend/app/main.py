@@ -1,4 +1,4 @@
-```python
+
 from dotenv import load_dotenv
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
@@ -39,4 +39,3 @@ def health_check():
 
 
 app.include_router(tickets_router)
-```
