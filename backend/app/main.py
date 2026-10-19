@@ -14,7 +14,16 @@ setup_logging()
 
 app = FastAPI()
 
-# Allow requests from your deployed frontend and local development.
+app.add_exception_handler(Exception, global_exception_handler)
+
+app.middleware("http")(monitoring_middleware)
+app.middleware("http")(rate_limit)
+
+# CORS middleware MUST be added last because FastAPI's
+# app.middleware("http") executes in reverse registration order.
+# By registering CORSMiddleware after the other HTTP middlewares,
+# it becomes the outermost layer and processes every request
+# (including preflight OPTIONS) before rate_limit or monitoring.
 app.add_middleware(
     CORSMiddleware,
     allow_origins=[
@@ -26,11 +35,6 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
-
-app.add_exception_handler(Exception, global_exception_handler)
-
-app.middleware("http")(monitoring_middleware)
-app.middleware("http")(rate_limit)
 
 
 @app.get("/health")
