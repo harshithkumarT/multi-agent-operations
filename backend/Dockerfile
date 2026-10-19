@@ -8,7 +8,6 @@ RUN pip install --no-cache-dir -r requirements.txt
 
 COPY app ./app
 
-ENV OLLAMA_HOST=http://host.docker.internal:11434
 
 EXPOSE 8000
 

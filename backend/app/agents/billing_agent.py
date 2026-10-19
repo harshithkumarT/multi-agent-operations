@@ -1,5 +1,7 @@
-from ollama import chat
+import os
+from openai import OpenAI
 from app.models.ticket import Ticket
+
 BILLING_AGENT_INSTRUCTIONS = """
 You are a Billing Agent in a multi-agent operations system.
 
@@ -34,9 +36,11 @@ Reason:
 <short explanation>
 """
 
+client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
+
 def run_billing_agent(ticket: Ticket) -> str:
-    response = chat(
-        model="llama3.2",
+    response = client.chat.completions.create(
+        model="gpt-4o-mini",
         messages=[
             {
                 "role": "system",
@@ -59,4 +63,4 @@ Priority: {ticket.priority}
         ],
     )
 
-    return response.message.content.strip()
+    return response.choices[0].message.content.strip()

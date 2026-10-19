@@ -1,4 +1,5 @@
-from ollama import chat
+import os
+from openai import OpenAI
 from app.models.ticket import Ticket
 
 SUPPORT_AGENT_INSTRUCTIONS = """
@@ -28,10 +29,11 @@ Reason:
 <short explanation>
 """
 
+client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
 
-def run_support_agent(ticket:Ticket):
-    response = chat(
-        model="llama3.2",
+def run_support_agent(ticket: Ticket):
+    response = client.chat.completions.create(
+        model="gpt-4o-mini",
         messages=[
             {
                 "role": "system",
@@ -53,4 +55,4 @@ Status: {ticket.status}
         ],
     )
 
-    return response.message.content
+    return response.choices[0].message.content

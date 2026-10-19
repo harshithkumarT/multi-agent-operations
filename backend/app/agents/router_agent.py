@@ -1,3 +1,7 @@
+import os
+from openai import OpenAI
+from app.models.ticket import Ticket
+
 ROUTER_AGENT_INSTRUCTIONS = """
 You are a Router Agent in a multi-agent operations system.
 
@@ -22,26 +26,27 @@ Billing
 Support
 Order
 """
-from ollama import chat
-from app.models.ticket import Ticket
-def run_router_agent(ticket:Ticket)->str:
+
+client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
+
+def run_router_agent(ticket: Ticket) -> str:
     # raise Exception("TEST FAILURE: Router Agent failed intentionally")
-    response=chat(
-        model="llama3.2",
-        messages =[
+    response = client.chat.completions.create(
+        model="gpt-4o-mini",
+        messages=[
             {
-                "role":"system",
-                "content":ROUTER_AGENT_INSTRUCTIONS
+                "role": "system",
+                "content": ROUTER_AGENT_INSTRUCTIONS,
             },
             {
-                "role":"user",
-                "content":f"""
+                "role": "user",
+                "content": f"""
 Ticket ID : {ticket.id}
 Ticket Subject : {ticket.subject}
 customer Message :{ticket.message}
 Category: {ticket.category}"
-priority : {ticket.priority}"""
+priority : {ticket.priority}""",
             },
         ],
     )
-    return response.message.content.strip()
+    return response.choices[0].message.content.strip()
