@@ -27,10 +27,11 @@ Support
 Order
 """
 
-client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
+
 
 def run_router_agent(ticket: Ticket) -> str:
     # raise Exception("TEST FAILURE: Router Agent failed intentionally")
+    client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
     response = client.chat.completions.create(
         model="gpt-4o-mini",
         messages=[

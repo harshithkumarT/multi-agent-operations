@@ -37,9 +37,10 @@ Reason:
 <short explanation>
 """
 
-client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
+
 
 def run_order_agent(ticket: Ticket) -> str:
+    client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
     response = client.chat.completions.create(
         model="gpt-4o-mini",
         messages=[
