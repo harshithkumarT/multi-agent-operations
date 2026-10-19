@@ -31,6 +31,7 @@ app.add_middleware(
         "https://multi-agent-operations-2e44.vercel.app",
         "http://localhost:3000",
     ],
+    allow_origin_regex=r"https://multi-agent-operations-2e44.*\.vercel\.app",
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
